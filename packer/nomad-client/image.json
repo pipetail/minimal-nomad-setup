@@ -34,7 +34,7 @@
             "type": "shell",
             "inline": [
                 "sudo apt-get update > /dev/null",
-                "sudo apt-get install curl unzip -qq > /dev/null",
+                "sudo apt-get install curl unzip docker.io -qq > /dev/null",
                 "curl --silent -L -o /tmp/consul.zip {{user `consul_url`}}",
                 "curl --silent -L -o /tmp/nomad.zip {{user `nomad_url`}}",
                 "unzip /tmp/consul.zip > /dev/null",
@@ -55,8 +55,10 @@
                 "chmod 640 /etc/nomad.d/nomad.hcl",
                 "systemctl enable consul.service",
                 "systemctl enable nomad.service",
+                "systemctl enable docker.service",
                 "mkdir -p /opt/consul",
-                "chown -R consul:consul /opt/consul"
+                "chown -R consul:consul /opt/consul",
+                "usermod -aG docker nomad"
             ]
         }
     ]

@@ -1,0 +1,25 @@
+#cloud-config
+preserve_hostname: true
+fqdn: ${fqdn}
+hostname: ${hostname}
+
+runcmd:
+  - [ systemctl, stop, ufw]
+  - [ systemctl, disable, ufw]
+
+write_files:
+  - path: /etc/consul.d/consul.hcl
+    owner: consul:consul
+    permissions: '0644'
+    content: |
+      datacenter = "${datacenter}"
+      data_dir = "/mnt/consul/data"
+      encrypt = "Luj2FZWwlt8475wD1WtwUQ=="
+      retry_join = ["${member_1}", "${member_2}"]
+      server = true
+      bootstrap_expect = 3
+      ui = true
+      bind_addr = "{{ GetInterfaceIP `eth1` }}"
+      addresses = {
+        http = "0.0.0.0"
+      }

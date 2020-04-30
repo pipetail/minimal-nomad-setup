@@ -1,0 +1,11 @@
+[Unit]
+Description=Consul data drive
+
+[Mount]
+What=/dev/sda
+Where=/mnt/consul
+Type=ext4
+Options=defaults
+
+[Install]
+WantedBy=multi-user.target

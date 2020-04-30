@@ -1,0 +1,64 @@
+{
+    "variables": {
+        "do_token": "{{env `TF_VAR_do_token`}}",
+        "consul_url": "https://releases.hashicorp.com/consul/1.7.2/consul_1.7.2_linux_amd64.zip",
+        "nomad_url": "https://releases.hashicorp.com/nomad/0.11.1/nomad_0.11.1_linux_amd64.zip"
+    },
+    "builders": [
+      {
+        "type": "digitalocean",
+        "api_token": "{{user `do_token`}}",
+        "image": "ubuntu-20-04-x64",
+        "region": "fra1",
+        "size": "512mb",
+        "ssh_username": "root"
+      }
+    ],
+    "provisioners": [
+        {
+          "type": "file",
+          "source": "consul.service",
+          "destination": "/etc/systemd/system/consul.service"
+        },
+        {
+          "type": "file",
+          "source": "nomad.service",
+          "destination": "/etc/systemd/system/nomad.service"
+        },
+        {
+          "type": "file",
+          "source": "nomad.mount",
+          "destination": "/etc/systemd/system/mnt-nomad.mount"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt-get update > /dev/null",
+                "sudo apt-get install curl unzip -qq > /dev/null",
+                "curl --silent -L -o /tmp/consul.zip {{user `consul_url`}}",
+                "curl --silent -L -o /tmp/nomad.zip {{user `nomad_url`}}",
+                "unzip /tmp/consul.zip > /dev/null",
+                "unzip /tmp/nomad.zip > /dev/null",
+                "mv consul /usr/local/bin/consul",
+                "mv nomad /usr/local/bin/nomad",
+                "chmod +x /usr/local/bin/consul",
+                "chmod +x /usr/local/bin/nomad",
+                "mkdir -p /etc/consul.d/",
+                "mkdir -p /etc/nomad.d/",
+                "touch /etc/consul.d/consul.hcl",
+                "touch /etc/nomad.d/nomad.hcl",
+                "useradd consul -s /bin/bash",
+                "useradd nomad -s /bin/bash",
+                "chown --recursive consul:consul /etc/consul.d",
+                "chown --recursive nomad:nomad /etc/nomad.d",
+                "chmod 640 /etc/consul.d/consul.hcl",
+                "chmod 640 /etc/nomad.d/nomad.hcl",
+                "systemctl enable consul.service",
+                "systemctl enable nomad.service",
+                "mkdir -p /opt/consul",
+                "chown -R consul:consul /opt/consul",
+                "mkdir /mnt/nomad"
+            ]
+        }
+    ]
+  }

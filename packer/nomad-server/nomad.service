@@ -1,0 +1,26 @@
+[Unit]
+Description="HashiCorp Nomad - A lightweight scheduler"
+Documentation=https://www.nomad.io/
+Requires=network-online.target mnt-nomad.mount
+After=network-online.target mnt-nomad.mount
+ConditionFileNotEmpty=/etc/nomad.d/nomad.hcl
+
+[Service]
+User=nomad
+Group=nomad
+ExecStart=/usr/local/bin/nomad agent -config=/etc/nomad.d/nomad.hcl
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+KillSignal=SIGINT
+LimitNOFILE=infinity
+LimitNPROC=infinity
+Restart=on-failure
+RestartSec=2
+StartLimitBurst=3
+TasksMax=infinity
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /mnt/nomad/data
+ExecStartPre=/bin/chown -R nomad:nomad /mnt/nomad/data
+
+[Install]
+WantedBy=multi-user.target

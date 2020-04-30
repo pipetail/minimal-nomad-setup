@@ -1,0 +1,47 @@
+{
+    "variables": {
+        "do_token": "{{env `TF_VAR_do_token`}}",
+        "consul_url": "https://releases.hashicorp.com/consul/1.7.2/consul_1.7.2_linux_amd64.zip"
+    },
+    "builders": [
+      {
+        "type": "digitalocean",
+        "api_token": "{{user `do_token`}}",
+        "image": "ubuntu-20-04-x64",
+        "region": "fra1",
+        "size": "512mb",
+        "ssh_username": "root"
+      }
+    ],
+    "provisioners": [
+        {
+          "type": "file",
+          "source": "consul.service",
+          "destination": "/etc/systemd/system/consul.service"
+        },
+        {
+          "type": "file",
+          "source": "consul.mount",
+          "destination": "/etc/systemd/system/mnt-consul.mount"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt-get update > /dev/null",
+                "sudo apt-get install curl unzip -qq > /dev/null",
+                "curl --silent -L -o /tmp/consul.zip {{user `consul_url`}}",
+                "unzip /tmp/consul.zip > /dev/null",
+                "mv consul /usr/local/bin/consul",
+                "chmod +x /usr/local/bin/consul",
+                "mkdir -p /etc/consul.d/",
+                "touch /etc/consul.d/consul.hcl",
+                "useradd consul -s /bin/bash",
+                "chown --recursive consul:consul /etc/consul.d",
+                "chmod 640 /etc/consul.d/consul.hcl",
+                "sudo mkdir -p /mnt/consul",
+                "systemctl enable mnt-consul.mount",
+                "systemctl enable consul.service"
+            ]
+        }
+    ]
+  }

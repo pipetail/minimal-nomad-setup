@@ -4,6 +4,12 @@ job "traefik" {
 
   group "traefik" {
 
+    update {
+        max_parallel     = 1
+        stagger = "2m"
+        health_check = "task_states"
+    }
+
     task "traefik" {
       driver = "docker"
 
@@ -22,6 +28,8 @@ job "traefik" {
             "--serverstransport.insecureskipverify=true",
             "--entrypoints.web.Address=:8081",
             "--entrypoints.web.forwardedheaders.insecure=true",
+            "--entrypoints.web.http.redirections.entrypoint.scheme=https",
+            "--entrypoints.web.http.redirections.entrypoint.to=websecure",
             "--entrypoints.websecure.Address=:8082",
             "--entrypoints.websecure.http.tls=true",
             "--entrypoints.websecure.forwardedheaders.insecure=true",

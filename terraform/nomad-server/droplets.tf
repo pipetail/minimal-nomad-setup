@@ -2,6 +2,10 @@ data "digitalocean_image" "nomad" {
   name = "packer-1588272752"
 }
 
+resource "digitalocean_tag" "nomad_server" {
+  name = "nomad-server"
+}
+
 resource "digitalocean_droplet" "nomad_0" {
   image  = data.digitalocean_image.nomad.id
   name   = "nomad0"
@@ -12,6 +16,10 @@ resource "digitalocean_droplet" "nomad_0" {
 
   ssh_keys = [
     var.key_fingerprint_stepan_vrany,
+  ]
+
+  tags = [
+    digitalocean_tag.nomad_server.id,
   ]
 
   vpc_uuid = var.vpc_id
@@ -29,6 +37,10 @@ resource "digitalocean_droplet" "nomad_1" {
     var.key_fingerprint_stepan_vrany,
   ]
 
+  tags = [
+    digitalocean_tag.nomad_server.id,
+  ]
+
   vpc_uuid = var.vpc_id
 }
 
@@ -42,6 +54,10 @@ resource "digitalocean_droplet" "nomad_2" {
 
   ssh_keys = [
     var.key_fingerprint_stepan_vrany,
+  ]
+
+  tags = [
+    digitalocean_tag.nomad_server.id,
   ]
 
   vpc_uuid = var.vpc_id

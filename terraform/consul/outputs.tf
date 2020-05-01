@@ -9,3 +9,7 @@ output "consul_1_fs_id" {
 output "consul_2_fs_id" {
   value = digitalocean_volume.consul_2.filesystem_label
 }
+
+output "consul_tag_id" {
+  value = digitalocean_tag.consul.id
+}

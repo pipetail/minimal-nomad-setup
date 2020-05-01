@@ -6,6 +6,10 @@ resource "digitalocean_tag" "frontend" {
   name = "frontend"
 }
 
+resource "digitalocean_tag" "nomad_client" {
+  name = "nomad-client"
+}
+
 resource "digitalocean_droplet" "nomad_0" {
   image  = data.digitalocean_image.nomad.id
   name   = "nomadc0"
@@ -18,7 +22,10 @@ resource "digitalocean_droplet" "nomad_0" {
     var.key_fingerprint_stepan_vrany,
   ]
 
-  tags = [digitalocean_tag.frontend.id]
+  tags = [
+    digitalocean_tag.frontend.id,
+    digitalocean_tag.nomad_client.id,
+  ]
 
   vpc_uuid = var.vpc_id
 }
@@ -35,7 +42,10 @@ resource "digitalocean_droplet" "nomad_1" {
     var.key_fingerprint_stepan_vrany,
   ]
 
-  tags = [digitalocean_tag.frontend.id]
+  tags = [
+    digitalocean_tag.frontend.id,
+    digitalocean_tag.nomad_client.id,
+  ]
 
   vpc_uuid = var.vpc_id
 }
@@ -52,7 +62,10 @@ resource "digitalocean_droplet" "nomad_2" {
     var.key_fingerprint_stepan_vrany,
   ]
 
-  tags = [digitalocean_tag.frontend.id]
+  tags = [
+    digitalocean_tag.frontend.id,
+    digitalocean_tag.nomad_client.id,
+  ]
 
   vpc_uuid = var.vpc_id
 }

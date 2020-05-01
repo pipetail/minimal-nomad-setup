@@ -2,6 +2,10 @@ data "digitalocean_image" "consul" {
   name = "packer-1588257475"
 }
 
+resource "digitalocean_tag" "consul" {
+  name = "consul"
+}
+
 resource "digitalocean_droplet" "consul_0" {
   image  = data.digitalocean_image.consul.id
   name   = "consul0"
@@ -12,6 +16,10 @@ resource "digitalocean_droplet" "consul_0" {
 
   ssh_keys = [
     var.key_fingerprint_stepan_vrany,
+  ]
+
+  tags = [
+    digitalocean_tag.consul.id,
   ]
 
   vpc_uuid = var.vpc_id
@@ -29,6 +37,10 @@ resource "digitalocean_droplet" "consul_1" {
     var.key_fingerprint_stepan_vrany,
   ]
 
+  tags = [
+    digitalocean_tag.consul.id,
+  ]
+
   vpc_uuid = var.vpc_id
 }
 
@@ -42,6 +54,10 @@ resource "digitalocean_droplet" "consul_2" {
 
   ssh_keys = [
     var.key_fingerprint_stepan_vrany,
+  ]
+
+  tags = [
+    digitalocean_tag.consul.id,
   ]
 
   vpc_uuid = var.vpc_id

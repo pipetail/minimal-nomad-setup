@@ -1,7 +1,7 @@
 resource "digitalocean_loadbalancer" "public" {
   name   = "nomad-fe01"
   region = "fra1"
-  
+
   forwarding_rule {
     entry_port      = 80
     entry_protocol  = "http"
@@ -11,11 +11,11 @@ resource "digitalocean_loadbalancer" "public" {
 
 
   forwarding_rule {
-    entry_port     = 443
-    entry_protocol = "https"
+    entry_port      = 443
+    entry_protocol  = "https"
     target_port     = 8082
     target_protocol = "https"
-    certificate_id = digitalocean_certificate.public.id
+    certificate_id  = digitalocean_certificate.public.id
   }
 
   healthcheck {

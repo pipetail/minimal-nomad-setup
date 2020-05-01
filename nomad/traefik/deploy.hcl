@@ -29,7 +29,6 @@ job "traefik" {
             "--serverstransport.insecureskipverify=true",
             "--entrypoints.web.Address=:8081",
             "--entrypoints.web.forwardedheaders.insecure=true",
-            "--entrypoints.web.http.redirections.entrypoint.scheme=https",
             "--entrypoints.websecure.Address=:8082",
             "--entrypoints.websecure.http.tls=true",
             "--entrypoints.websecure.forwardedheaders.insecure=true",
@@ -85,7 +84,9 @@ job "traefik" {
         tags = [
             "traefik.enable=true",
             "traefik.http.routers.dashboard.rule=Host(`traefik.stepanvrany.cz`)",
-            "traefik.http.routers.dashboard.entrypoints=websecure",
+            "traefik.http.routers.dashboard.entrypoints=websecure,web",
+            "traefik.http.middlewares.traefik-dashboard-redirect-https.redirectscheme.scheme=https",
+            "traefik.http.routers.dashboard.middlewares=traefik-dashboard-redirect-https"
         ]
 
         port = "api"

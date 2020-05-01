@@ -29,7 +29,9 @@ job "demo-webapp" {
         tags = [
             "traefik.enable=true",
             "traefik.http.routers.nginx.rule=Host(`nginx.stepanvrany.cz`)",
-            "traefik.http.routers.nginx.entrypoints=websecure",
+            "traefik.http.routers.nginx.entrypoints=websecure,web",
+            "traefik.http.middlewares.nginx-redirect-https.redirectscheme.scheme=https",
+            "traefik.http.routers.nginx.middlewares=nginx-redirect-https"
         ]
 
         check {

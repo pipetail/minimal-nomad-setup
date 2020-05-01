@@ -69,9 +69,8 @@ job "traefik" {
 
         # https://docs.traefik.io/routing/providers/consul-catalog/
         tags = [
-            "traefik.http.routers.myrouter.rule=Host(`example.com`)",
+            "traefik.http.routers.myrouter.rule=Host(`traefik.stepanvrany.cz`)",
             "traefik.http.routers.myrouter.entrypoints=web,websecure",
-            "traefik.http.routers.myrouter.service=traefik-dashboard",
         ]
 
         port = "api"

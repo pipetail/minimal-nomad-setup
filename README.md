@@ -6,3 +6,5 @@
 - https://www.nomadproject.io/docs/configuration/index.html
 - https://www.nomadproject.io/docs/install/production/deployment-guide/
 - https://www.nomadproject.io/docs/configuration/client/
+- https://www.nomadproject.io/docs/schedulers/#system
+- https://www.nomadproject.io/docs/job-specification/network/

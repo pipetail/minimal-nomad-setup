@@ -30,7 +30,6 @@ job "traefik" {
             "--entrypoints.web.Address=:8081",
             "--entrypoints.web.forwardedheaders.insecure=true",
             "--entrypoints.web.http.redirections.entrypoint.scheme=https",
-            "--entrypoints.web.http.redirections.entrypoint.to=websecure",
             "--entrypoints.websecure.Address=:8082",
             "--entrypoints.websecure.http.tls=true",
             "--entrypoints.websecure.forwardedheaders.insecure=true",

@@ -26,11 +26,6 @@
           "destination": "/etc/systemd/system/nomad.service"
         },
         {
-          "type": "file",
-          "source": "nomad.mount",
-          "destination": "/etc/systemd/system/mnt-nomad.mount"
-        },
-        {
             "type": "shell",
             "inline": [
                 "sudo apt-get update > /dev/null",
@@ -58,7 +53,9 @@
                 "systemctl enable docker.service",
                 "mkdir -p /opt/consul",
                 "chown -R consul:consul /opt/consul",
-                "usermod -aG docker nomad"
+                "usermod -aG docker nomad",
+                "mkdir /opt/nomad",
+                "chown -R nomad:nomad /opt/nomad"
             ]
         }
     ]

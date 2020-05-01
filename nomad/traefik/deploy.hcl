@@ -1,6 +1,7 @@
 job "traefik" {
   datacenters = ["fra1"]
   type        = "system"
+  priority = 100
 
   group "traefik" {
 

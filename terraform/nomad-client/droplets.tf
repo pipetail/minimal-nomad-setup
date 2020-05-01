@@ -18,7 +18,7 @@ resource "digitalocean_droplet" "nomad_0" {
     var.key_fingerprint_stepan_vrany,
   ]
 
-  tags   = [digitalocean_tag.frontend.id]
+  tags = [digitalocean_tag.frontend.id]
 
   vpc_uuid = var.vpc_id
 }
@@ -35,7 +35,7 @@ resource "digitalocean_droplet" "nomad_1" {
     var.key_fingerprint_stepan_vrany,
   ]
 
-  tags   = [digitalocean_tag.frontend.id]
+  tags = [digitalocean_tag.frontend.id]
 
   vpc_uuid = var.vpc_id
 }
@@ -52,7 +52,7 @@ resource "digitalocean_droplet" "nomad_2" {
     var.key_fingerprint_stepan_vrany,
   ]
 
-  tags   = [digitalocean_tag.frontend.id]
+  tags = [digitalocean_tag.frontend.id]
 
   vpc_uuid = var.vpc_id
 }

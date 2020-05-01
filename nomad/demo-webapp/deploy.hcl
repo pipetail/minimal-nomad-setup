@@ -27,8 +27,9 @@ job "demo-webapp" {
         port = "http"
 
         tags = [
+            "traefik.enable=true",
             "traefik.http.routers.nginx.rule=Host(`nginx.stepanvrany.cz`)",
-            "traefik.http.routers.nginx.entrypoints=web,websecure",
+            "traefik.http.routers.nginx.entrypoints=websecure",
         ]
 
         check {

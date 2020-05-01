@@ -31,6 +31,12 @@ job "traefik" {
             "--providers.consulcatalog.endpoint.address=http://127.0.0.1:8500",
             #"--providers.consulcatalog.constraints='Tag(`enable=true`)'",
         ]
+
+        port_map {
+            api = 8080
+            http = 8081
+            https = 8082
+        }
       }
 
       resources {
@@ -69,8 +75,8 @@ job "traefik" {
 
         # https://docs.traefik.io/routing/providers/consul-catalog/
         tags = [
-            "traefik.http.routers.myrouter.rule=Host(`traefik.stepanvrany.cz`)",
-            "traefik.http.routers.myrouter.entrypoints=web,websecure",
+            "traefik.http.routers.dashboard.rule=Host(`traefik.stepanvrany.cz`)",
+            "traefik.http.routers.dashboard.entrypoints=web,websecure",
         ]
 
         port = "api"

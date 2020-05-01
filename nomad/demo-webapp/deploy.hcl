@@ -6,7 +6,6 @@ job "demo-webapp" {
     count = 1
 
     task "server" {
-
       driver = "docker"
 
       config {
@@ -18,7 +17,6 @@ job "demo-webapp" {
 
       resources {
         network {
-          mbits = 10
           port  "http"{        
           }
         }
@@ -29,8 +27,8 @@ job "demo-webapp" {
         port = "http"
 
         tags = [
-            "traefik.http.routers.myrouter.rule=Host(`nginx.stepanvrany.cz`)",
-            "traefik.http.routers.myrouter.entrypoints=web,websecure",
+            "traefik.http.routers.nginx.rule=Host(`nginx.stepanvrany.cz`)",
+            "traefik.http.routers.nginx.entrypoints=web,websecure",
         ]
 
         check {

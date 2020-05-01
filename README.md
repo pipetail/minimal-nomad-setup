@@ -8,3 +8,6 @@
 - https://www.nomadproject.io/docs/configuration/client/
 - https://www.nomadproject.io/docs/schedulers/#system
 - https://www.nomadproject.io/docs/job-specification/network/
+- https://codefresh.io/docs/docs/yaml-examples/examples/nomad/
+- https://docs.traefik.io/providers/consul-catalog
+- https://docs.traefik.io/routing/providers/consul-catalog/

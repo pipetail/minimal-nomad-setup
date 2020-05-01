@@ -23,6 +23,10 @@ resource "digitalocean_droplet" "nomad_0" {
   ]
 
   vpc_uuid = var.vpc_id
+
+  volume_ids = [
+    digitalocean_volume.nomad_0.id,
+  ]
 }
 
 resource "digitalocean_droplet" "nomad_1" {
@@ -42,6 +46,10 @@ resource "digitalocean_droplet" "nomad_1" {
   ]
 
   vpc_uuid = var.vpc_id
+
+  volume_ids = [
+    digitalocean_volume.nomad_1.id,
+  ]
 }
 
 resource "digitalocean_droplet" "nomad_2" {
@@ -61,5 +69,9 @@ resource "digitalocean_droplet" "nomad_2" {
   ]
 
   vpc_uuid = var.vpc_id
+
+  volume_ids = [
+    digitalocean_volume.nomad_2.id,
+  ]
 }
 

@@ -11,3 +11,10 @@ resource "digitalocean_record" "nomad_nginx" {
   name   = "nginx"
   value  = digitalocean_loadbalancer.public.ip
 }
+
+resource "digitalocean_record" "nomad_prometheus" {
+  domain = "stepanvrany.cz"
+  type   = "A"
+  name   = "prometheus"
+  value  = digitalocean_loadbalancer.public.ip
+}

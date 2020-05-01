@@ -1,12 +1,12 @@
 job "traefik" {
   datacenters = ["fra1"]
-  type        = "system"
+  type = "system"
   priority = 100
 
   group "traefik" {
 
     update {
-        max_parallel     = 1
+        max_parallel = 1
         stagger = "2m"
         health_check = "task_states"
     }
@@ -15,7 +15,7 @@ job "traefik" {
       driver = "docker"
 
       config {
-        image        = "traefik:v2.2.1"
+        image = "traefik:v2.2.1"
         network_mode = "host"
 
         args = [
@@ -69,11 +69,11 @@ job "traefik" {
         name = "traefik-http"
         port = "http"
         check {
-          name     = "alive-http"
-          type     = "tcp"
-          port     = "http"
+          name = "alive-http"
+          type = "tcp"
+          port = "http"
           interval = "10s"
-          timeout  = "2s"
+          timeout = "2s"
         }
       }
 
@@ -97,7 +97,7 @@ job "traefik" {
             port = "api"
             path = "/ping"
             interval = "5s"
-            timeout  = "2s"
+            timeout = "2s"
         }
       }
     }

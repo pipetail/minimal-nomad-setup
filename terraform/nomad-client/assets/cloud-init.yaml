@@ -17,6 +17,11 @@ write_files:
       encrypt = "Luj2FZWwlt8475wD1WtwUQ=="
       retry_join = ["${consul_0}", "${consul_1}", "${consul_2}"]
       bind_addr = "{{ GetInterfaceIP `eth1` }}"
+      bind_addr = "0.0.0.0"
+      advertise_addr = "{{ GetInterfaceIP `eth1` }}"
+      addresses = {
+        http = "0.0.0.0"
+      }
 
   - path: /etc/nomad.d/nomad.hcl
     owner: nomad:nomad
@@ -32,7 +37,8 @@ write_files:
       }
 
       client {
-        enabled       = true
+        enabled = true
+        network_interface = "eth1" # private network interface
       }
 
       plugin "docker" {
@@ -56,4 +62,12 @@ write_files:
 
       consul {
         address = "127.0.0.1:8500"
+      }
+
+      telemetry {
+        collection_interval = "1s"
+        disable_hostname = true
+        prometheus_metrics = true
+        publish_allocation_metrics = true
+        publish_node_metrics = true
       }

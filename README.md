@@ -11,3 +11,5 @@
 - https://codefresh.io/docs/docs/yaml-examples/examples/nomad/
 - https://docs.traefik.io/providers/consul-catalog
 - https://docs.traefik.io/routing/providers/consul-catalog/
+- https://learn.hashicorp.com/nomad/operating-nomad/prometheus-metrics
+- https://github.com/hashicorp/nomad/issues/209

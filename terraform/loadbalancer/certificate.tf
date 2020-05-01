@@ -4,5 +4,6 @@ resource "digitalocean_certificate" "public" {
   domains = [
     "traefik.stepanvrany.cz",
     "nginx.stepanvrany.cz",
+    "prometheus.stepanvrany.cz",
   ]
 }

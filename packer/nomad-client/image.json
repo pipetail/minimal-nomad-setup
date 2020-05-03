@@ -11,7 +11,8 @@
         "image": "ubuntu-20-04-x64",
         "region": "fra1",
         "size": "512mb",
-        "ssh_username": "root"
+        "ssh_username": "root",
+        "snapshot_name": "packer-nomad-client-{{timestamp}}"
       }
     ],
     "provisioners": [
@@ -26,10 +27,20 @@
           "destination": "/etc/systemd/system/nomad.service"
         },
         {
+          "type": "file",
+          "source": "iptables.rules",
+          "destination": "/etc/iptables.rules"
+        },
+        {
+          "type": "file",
+          "source": "resolved.conf",
+          "destination": "/etc/systemd/resolved.conf"
+        },
+        {
             "type": "shell",
             "inline": [
                 "sudo apt-get update > /dev/null",
-                "sudo apt-get install curl unzip docker.io -qq > /dev/null",
+                "DEBIAN_FRONTEND=noninteractive apt-get install curl unzip docker.io iptables-persistent -qq > /dev/null",
                 "curl --silent -L -o /tmp/consul.zip {{user `consul_url`}}",
                 "curl --silent -L -o /tmp/nomad.zip {{user `nomad_url`}}",
                 "unzip /tmp/consul.zip > /dev/null",
@@ -55,7 +66,9 @@
                 "chown -R consul:consul /opt/consul",
                 "usermod -aG docker nomad",
                 "mkdir /opt/nomad",
-                "chown -R nomad:nomad /opt/nomad"
+                "chown -R nomad:nomad /opt/nomad",
+                "ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf",
+                "cat /etc/iptables.rules > /etc/iptables/rules.v4"
             ]
         }
     ]

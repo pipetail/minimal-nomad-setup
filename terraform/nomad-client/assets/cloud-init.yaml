@@ -3,10 +3,6 @@ preserve_hostname: true
 fqdn: ${fqdn}
 hostname: ${hostname}
 
-runcmd:
-  - [ systemctl, stop, ufw]
-  - [ systemctl, disable, ufw]
-
 write_files:
   - path: /etc/consul.d/consul.hcl
     owner: consul:consul

@@ -1,5 +1,5 @@
 data "digitalocean_image" "nomad" {
-  name = "packer-1588315549"
+  name = "packer-nomad-client-1588526411"
 }
 
 resource "digitalocean_tag" "frontend" {

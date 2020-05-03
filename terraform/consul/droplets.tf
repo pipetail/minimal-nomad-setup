@@ -1,5 +1,5 @@
 data "digitalocean_image" "consul" {
-  name = "packer-1588257475"
+  name = "packer-consul-1588525812"
 }
 
 resource "digitalocean_tag" "consul" {

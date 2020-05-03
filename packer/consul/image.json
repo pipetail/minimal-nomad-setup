@@ -10,7 +10,8 @@
         "image": "ubuntu-20-04-x64",
         "region": "fra1",
         "size": "512mb",
-        "ssh_username": "root"
+        "ssh_username": "root",
+        "snapshot_name": "packer-consul-{{timestamp}}"
       }
     ],
     "provisioners": [
@@ -28,7 +29,7 @@
             "type": "shell",
             "inline": [
                 "sudo apt-get update > /dev/null",
-                "sudo apt-get install curl unzip -qq > /dev/null",
+                "DEBIAN_FRONTEND=noninteractive sudo apt-get install curl unzip -qq > /dev/null",
                 "curl --silent -L -o /tmp/consul.zip {{user `consul_url`}}",
                 "unzip /tmp/consul.zip > /dev/null",
                 "mv consul /usr/local/bin/consul",
